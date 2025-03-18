@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { registerUser, loginUser, updateUser, deleteUser, getAllUsers } = require("../controllers/authController");
 const { protect } = require("../middleware/auth");
+const authController = require("../controllers/authController");
 
 // Registrar un usuario
 router.post("/register", registerUser);
