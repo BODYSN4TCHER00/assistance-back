@@ -118,3 +118,34 @@ exports.getAllUsers = async (req, res) => {
     res.status(500).json({ message: "Hubo un error al obtener los usuarios" });
   }
 };
+
+// Verificar token y devolver información del usuario
+exports.verifyToken = async (req, res) => {
+  const token = req.header("Authorization");
+
+  if (!token) {
+    return res.status(401).json({ error: "Acceso denegado, no se proporcionó token" });
+  }
+
+  try {
+    // Verificar el token
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // Buscar al usuario en la base de datos
+    const user = await User.findById(decoded.userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    // Devolver la información del usuario
+    res.json({
+      id: user._id,
+      name: user.name,
+      email: user.email,
+      role: user.role, // Asegúrate de incluir el rol
+    });
+  } catch (err) {
+    res.status(400).json({ error: "Token no válido o expirado" });
+  }
+};
