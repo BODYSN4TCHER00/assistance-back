@@ -107,3 +107,14 @@ exports.deleteUser = async (req, res) => {
     res.status(500).json({ message: "Hubo un error al eliminar el usuario" });
   }
 };
+
+// Obtener todos los usuarios
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find().select("-password"); // Excluir la contraseña por seguridad
+    res.json(users);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Hubo un error al obtener los usuarios" });
+  }
+};
