@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { registerUser, loginUser, updateUser, deleteUser, getAllUsers } = require("../controllers/authController");
+const { protect } = require("../middleware/authMiddleware");
 
 // Registrar un usuario
 router.post("/register", registerUser);
@@ -16,5 +17,8 @@ router.put("/update/:id", updateUser);
 
 // Eliminar un usuario
 router.delete("/delete/:id", deleteUser);
+
+// Ruta para verificar el token
+router.get("/verify", protect, authController.verifyToken);
 
 module.exports = router;
