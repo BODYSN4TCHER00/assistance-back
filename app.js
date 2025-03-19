@@ -1,13 +1,21 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const cors = require('cors');
+const cors = require('cors'); // Importar cors
 const connectDB = require('./config/db');
 require('dotenv').config();
 
 const app = express();
 
+// Configurar CORS
+const corsOptions = {
+  origin: 'http://localhost:5173', // Reemplaza con la URL de tu frontend
+  credentials: true, // Permitir credenciales (cookies, tokens, etc.)
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Cabeceras permitidas
+};
+app.use(cors(corsOptions));
+
 // Middleware
-app.use(cors());
 app.use(bodyParser.json());
 
 // Conectar a la base de datos
@@ -27,5 +35,5 @@ module.exports = app;
 
 // Iniciar el servidor
 if (require.main === module) {
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 }
