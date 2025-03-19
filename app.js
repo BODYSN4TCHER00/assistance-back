@@ -6,14 +6,12 @@ require('dotenv').config();
 
 const app = express();
 
-// Configurar CORS
-const corsOptions = {
-  origin: 'http://localhost:5173', // Reemplaza con la URL de tu frontend
-  credentials: true, // Permitir credenciales (cookies, tokens, etc.)
+// Configurar CORS para permitir cualquier origen
+app.use(cors({
+  origin: '*', // Permitir cualquier origen
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
   allowedHeaders: ['Content-Type', 'Authorization'], // Cabeceras permitidas
-};
-app.use(cors(corsOptions));
+}));
 
 // Middleware
 app.use(bodyParser.json());
