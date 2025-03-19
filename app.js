@@ -6,12 +6,23 @@ require('dotenv').config();
 
 const app = express();
 
+<<<<<<< HEAD
 // Configurar CORS para permitir cualquier origen
 app.use(cors({
   origin: '*', // Permitir cualquier origen
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
   allowedHeaders: ['Content-Type', 'Authorization'], // Cabeceras permitidas
 }));
+=======
+// Configurar CORS
+const corsOptions = {
+  origin: 'http://localhost:5173', // Reemplaza con la URL de tu frontend
+  credentials: true, // Permitir credenciales (cookies, tokens, etc.)
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Cabeceras permitidas
+};
+app.use(cors(corsOptions));
+>>>>>>> d59855b (app.js con cors)
 
 // Middleware
 app.use(bodyParser.json());
@@ -34,4 +45,8 @@ module.exports = app;
 // Iniciar el servidor
 if (require.main === module) {
   app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> d59855b (app.js con cors)
