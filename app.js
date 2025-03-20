@@ -7,6 +7,7 @@ require('dotenv').config();
 const app = express();
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Configurar CORS para permitir cualquier origen
 app.use(cors({
   origin: '*', // Permitir cualquier origen
@@ -23,6 +24,14 @@ const corsOptions = {
 };
 app.use(cors(corsOptions));
 >>>>>>> d59855b (app.js con cors)
+=======
+// Configurar CORS para permitir cualquier origen
+app.use(cors({
+  origin: '*', // Permitir cualquier origen
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'], // Cabeceras permitidas
+}));
+>>>>>>> 4312ccc (3v)
 
 // Middleware
 app.use(bodyParser.json());
