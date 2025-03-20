@@ -24,14 +24,13 @@ exports.getTeachers = async (req, res) => {
 // Actualizar un profesor por ID
 exports.updateTeacher = async (req, res) => {
     try {
-        const { id } = req.params; // ID del profesor a actualizar
-        const updateData = req.body; // Datos nuevos para actualizar
+        const { id } = req.params;
+        const updateData = req.body;
 
-        // Buscar y actualizar el profesor
         const updatedTeacher = await Teacher.findByIdAndUpdate(
             id,
             updateData,
-            { new: true, runValidators: true } // Devuelve el documento actualizado y valida los datos
+            { new: true, runValidators: true }
         );
 
         if (!updatedTeacher) {
@@ -47,9 +46,8 @@ exports.updateTeacher = async (req, res) => {
 // Eliminar un profesor por ID
 exports.deleteTeacher = async (req, res) => {
     try {
-        const { id } = req.params; // ID del profesor a eliminar
+        const { id } = req.params;
 
-        // Buscar y eliminar el profesor
         const deletedTeacher = await Teacher.findByIdAndDelete(id);
 
         if (!deletedTeacher) {

@@ -6,6 +6,7 @@ const TeacherSchema = new mongoose.Schema({
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
     status: { type: String, default: 'active' },
+    role: { type: String, enum: ['admin', 'teacher'], required: true, default: 'teacher' },
     groups: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }]
 });
 
