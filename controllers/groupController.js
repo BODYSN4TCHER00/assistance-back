@@ -1,5 +1,5 @@
 const Group = require('../models/Group');
-
+const Teacher = require('../models/Teacher')
 // Crear un grupo
 exports.createGroup = async (req, res) => {
     try {
@@ -57,6 +57,30 @@ exports.deleteGroup = async (req, res) => {
         }
 
         res.status(200).json({ message: 'Grupo eliminado correctamente' });
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+exports.createGroup = async (req, res) => {
+    try {
+        const group = new Group(req.body);
+
+        // Guardamos el grupo
+        await group.save();
+
+        // Buscar al profesor asignado
+        const teacher = await Teacher.findById(group.teacher);
+
+        if (!teacher) {
+            return res.status(404).json({ message: 'Profesor no encontrado' });
+        }
+
+        // Agregar el grupo al campo 'groups' del profesor
+        teacher.groups.push(group._id);
+        await teacher.save();
+
+        res.status(201).json(group);
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
